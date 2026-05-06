@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Myth vs Fact Classifier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Animated Background Elements -->
+  <div class="bg-container">
+    <div class="floating-blob blob-1"></div>
+    <div class="floating-blob blob-2"></div>
+    <div class="floating-blob blob-3"></div>
+    <div class="particles"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="navbar-left">
+        <a href="#" class="nav-brand">Decodr</a>
+      </div>
+
+      <div class="navbar-right">
+        <!-- Theme Toggle -->
+        <div class="theme-toggle-wrapper">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+            <div class="toggle-track">
+              <div class="toggle-thumb">
+                <span class="toggle-icon light-icon">☀️</span>
+                <span class="toggle-icon dark-icon">🌙</span>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1 class="hero-title">Myth vs Fact</h1>
+      <p class="hero-subtitle">Decode truth from noise</p>
+    </section>
+
+    <!-- Main Glass Card -->
+    <div class="glass-card main-card">
+      <!-- Input Section -->
+      <div class="input-section">
+        <textarea 
+          id="inputText" 
+          class="claim-input" 
+          placeholder="Type a claim to analyze..."
+          rows="3"
+        ></textarea>
+        <button id="predictBtn" class="btn-check">
+          <span>Check Claim</span>
+          <span class="btn-glow"></span>
+        </button>
+      </div>
+
+      <!-- Examples Section -->
+      <div class="examples-section">
+        <h3 class="examples-title">Try these examples</h3>
+        <div class="examples-chips">
+          <button class="chip" data-text="Drinking cold water causes sore throat">Cold water causes sore throat</button>
+          <button class="chip" data-text="Humans use only 10% of their brain">10% brain myth</button>
+          <button class="chip" data-text="Carrots improve eyesight">Carrots improve vision</button>
+          <button class="chip" data-text="Cracking knuckles causes arthritis">Knuckles cause arthritis</button>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loading" class="loading-state hidden">
+        <div class="spinner"></div>
+        <p>Analyzing claim...</p>
+      </div>
+
+      <!-- Result Section - Premium Centered Card -->
+      <div id="result" class="result-section hidden">
+        <div class="result-card">
+          <!-- Result Badge Header -->
+          <div class="result-header">
+            <div class="result-badge" id="resultBadge">
+              <span id="labelIcon" class="badge-icon">✔️</span>
+              <span id="labelOutput" class="badge-label">Fact</span>
+            </div>
+          </div>
+
+          <!-- Confidence Section -->
+          <div class="confidence-container">
+            <div class="confidence-header">
+              <span class="confidence-label">Confidence Level</span>
+              <span id="confidenceValue" class="confidence-value">0.0%</span>
+            </div>
+            <div class="confidence-bar">
+              <div id="confidenceBarFill" class="confidence-fill"></div>
+            </div>
+          </div>
+
+          <!-- Explanation Section -->
+          <div class="explanation-container">
+            <div class="explanation-header">
+              <span class="explanation-icon">ℹ️</span>
+              <span class="explanation-title">Why this result?</span>
+            </div>
+            <div id="explanationOutput" class="explanation-text"></div>
+          </div>
+
+          <!-- Try Another Button -->
+          <button id="tryAnotherBtn" class="btn-try-another">
+            <span>Try Another Claim</span>
+            <span class="btn-shine"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMsg" class="error-message hidden"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
