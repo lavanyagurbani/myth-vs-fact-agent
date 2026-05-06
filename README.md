@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# Myth vs Fact Classifier Agent
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A beginner-friendly AI mini project that classifies a sentence into:
+- Myth
+- Fact
+- Uncertain
 
-## Available Scripts
+It uses a **hybrid approach**:
+1. Rule-based keyword detection
+2. Machine Learning (TF-IDF + Logistic Regression)
 
-In the project directory, you can run:
+## Project Structure
 
-### `npm start`
+```text
+myth-fact-ui/
+  backend/
+    app.py
+    train_model.py
+    model.pkl
+    vectorizer.pkl
+  frontend/
+    index.html
+    style.css
+    script.js
+  requirements.txt
+  README.md
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## How to Run
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Open terminal in project folder:
+   ```bash
+   cd myth-fact-ui
+   ```
 
-### `npm test`
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Train model artifacts (creates `model.pkl` and `vectorizer.pkl`):
+   ```bash
+   python backend/train_model.py
+   ```
 
-### `npm run build`
+4. Start Flask backend:
+   ```bash
+   python backend/app.py
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5. Open frontend:
+   - Open `frontend/index.html` in your browser.
+   - Keep Flask running at `http://127.0.0.1:5000`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## API
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### POST `/predict`
+Request body:
+```json
+{
+  "text": "Everyone says detox drinks always cure flu"
+}
+```
 
-### `npm run eject`
+Sample response:
+```json
+{
+  "label": "Myth",
+  "confidence": 0.84,
+  "explanation": [
+    "Contains exaggerated or absolute wording (e.g., always/never)."
+  ],
+  "scores": {
+    "Myth": 0.84,
+    "Fact": 0.1,
+    "Uncertain": 0.06
+  }
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Notes
+- If model files are missing, backend auto-trains them on startup.
+- Frontend includes loading animation, error handling, and explanation rendering.
+- Designed for college mini-project demonstration.
